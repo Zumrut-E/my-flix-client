@@ -27,7 +27,7 @@ export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
         <Card.Text className="text-muted text-truncate">
           {movie.description}
         </Card.Text>
-        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
           <Button variant="link">Open</Button>
         </Link>
 
