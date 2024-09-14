@@ -14,7 +14,7 @@ export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   const handleFavoriteClick = () => {
     // Toggle the local state first
     setIsFav((prev) => !prev);
-    // Notify the parent component to update the favorite status
+    // Notify the parent component to update the favorite status (e.g., using Redux dispatch in the parent)
     onFavoriteToggle(movie.id, !isFav);
   };
 
@@ -31,6 +31,7 @@ export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
           <Button variant="link">Open</Button>
         </Link>
 
+        {/* Toggle favorite button */}
         <Button
           variant={isFav ? "danger" : "secondary"}
           onClick={handleFavoriteClick}

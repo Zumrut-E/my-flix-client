@@ -2,18 +2,20 @@ import { createRoot } from 'react-dom/client';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from 'react-bootstrap/Container';
 
-// Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
 import { MainView } from './components/main-view/main-view';
+import { Provider } from 'react-redux';
+import { store } from './store/store';  // Import the Redux store
 
-// Main component (will eventually use all the others)
 const MyFlixApplication = () => {
   return (
- <Container>
-   <MainView/>
-  </Container>
+    <Provider store={store}>  {/* Wrap the entire app with Provider */}
+      <Container>
+        <MainView />
+      </Container>
+    </Provider>
   );
-  };
+};
 
 // Finds the root of your app
 const container = document.querySelector("#root");

@@ -27,15 +27,30 @@ export const UserForm = ({ user, onUserUpdate, onLoggedOut }) => {
   };
 
   const handleDeregister = () => {
-    axios.delete(`https://myflix2024-e1c9b1faca45.herokuapp.com/users/${user.username}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+  const token = localStorage.getItem('token'); // Ensure token is retrieved once
+
+  if (!token) {
+    alert('You are not logged in. Please log in again.');
+    return;
+  }
+
+  axios.delete(`https://myflix2024-e1c9b1faca45.herokuapp.com/users/${user.username}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+    .then(() => {
+      alert('Your account has been deleted');
+      onLoggedOut(); // Clear user data from state and localStorage
     })
-      .then(() => {
-        alert('Your account has been deleted');
-        onLoggedOut();
-      })
-      .catch(error => console.error('There was an error deleting your account', error));
-  };
+    .catch(error => {
+      console.error('There was an error deleting your account', error);
+      // Handle specific error cases if needed
+      if (error.response && error.response.status === 401) {
+        alert('Unauthorized: Your session may have expired. Please log in again.');
+      } else {
+        alert('There was an error deleting your account. Please try again later.');
+      }
+    });
+};
 
   return (
     <Card className="mb-4">

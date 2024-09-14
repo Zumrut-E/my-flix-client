@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { MovieView } from "../movie-view/movie-view";
-import { MovieCard } from "../movie-card/movie-card";
 import { LoginView } from "../login-view/login-view";
 import { SignUpView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
@@ -8,19 +7,22 @@ import { ProfileView } from "../profile-view/profile-view";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useDispatch, useSelector } from 'react-redux';  // Import necessary hooks
+import { setMovies } from '../../features/movies/moviesSlice';  // Import setMovies action
+import { MoviesList } from '../movies-list/MoviesList';  // Import the MoviesList component
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
-  const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
 
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies.movies);  // Get movies from the Redux store
+
   useEffect(() => {
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
     fetch("https://myflix2024-e1c9b1faca45.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
@@ -35,14 +37,14 @@ export const MainView = () => {
             image_url: movie.image_url,
             genre: movie.genre,
             director: movie.director,
-            is_favorite: user?.favorite_movies?.includes(movie._id) || false
+            is_favorite: user?.favorite_movies?.includes(movie._id) || false,
           };
         });
 
-        setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));  // Dispatch movies to the Redux store
       })
       .catch((error) => console.error("Error fetching movies:", error));
-  }, [token]);
+  }, [token, user, dispatch]);
 
   const handleLogout = () => {
     setUser(null);
@@ -79,18 +81,16 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((updatedUser) => {
-        if(updatedUser !== 'Movie not found or already in favorites'){
+        if (updatedUser !== 'Movie not found or already in favorites') {
           localStorage.setItem("user", JSON.stringify(updatedUser));
           setUser(updatedUser);
         }
-        if(typeof updatedUser === "object"){
-          let a = movies.filter(item=> {
-            if(item.id === movieId){
-              item.is_favorite = !item.is_favorite;
-            }
-            return item;
-          });
-          setMovies(a);
+
+        if (typeof updatedUser === "object") {
+          const updatedMovies = movies.map((movie) =>
+            movie.id === movieId ? { ...movie, is_favorite: !movie.is_favorite } : movie
+          );
+          dispatch(setMovies(updatedMovies));  // Update the Redux store with the new favorite status
         }
       })
       .catch((error) => console.error("Error updating favorites:", error));
@@ -108,7 +108,7 @@ export const MainView = () => {
               !token ? (
                 <Navigate to="/" replace />
               ) : (
-                <ProfileView user={user} movies={movies} onUserUpdate={ setUser} onFavoriteToggle={handleFavoriteToggle}/>
+                <ProfileView user={user} movies={movies} onUserUpdate={setUser} onFavoriteToggle={handleFavoriteToggle} />
               )
             }
           />
@@ -163,17 +163,7 @@ export const MainView = () => {
               ) : movies.length === 0 ? (
                 <Col>The list is empty!</Col>
               ) : (
-                <>
-                  {movies.map((movie) => (
-                    <Col className="mb-4" key={movie.id} md={3}>
-                    <MovieCard
-      movie={movie}
-      isFavorite={movie.is_favorite}
-      onFavoriteToggle={handleFavoriteToggle}
-    />
-                    </Col>
-                  ))}
-                </>
+                <MoviesList onFavoriteToggle= {handleFavoriteToggle} /> /* Use the MoviesList component */
               )
             }
           />
