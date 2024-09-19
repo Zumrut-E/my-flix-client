@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import './movie-card.scss'; // Import custom styles
 
 export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   const [isFav, setIsFav] = useState(isFavorite);
@@ -12,33 +13,34 @@ export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   }, [isFavorite]);
 
   const handleFavoriteClick = () => {
-    // Toggle the local state first
     setIsFav((prev) => !prev);
-    // Notify the parent component to update the favorite status (e.g., using Redux dispatch in the parent)
-    onFavoriteToggle(movie.id, !isFav);
+    if (typeof onFavoriteToggle === 'function') {
+      onFavoriteToggle(movie.id, !isFav);
+    } else {
+      console.error('onFavoriteToggle is not a function');
+    }
   };
 
   return (
-    <Card>
+    <Card className="movie-card">
       <Card.Img variant="top" src={movie.image_url} alt={movie.title} />
-
       <Card.Body className="d-flex flex-column">
         <Card.Title className="text-truncate">{movie.title}</Card.Title>
         <Card.Text className="text-muted text-truncate">
           {movie.description}
         </Card.Text>
-        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">Open</Button>
-        </Link>
-
-        {/* Toggle favorite button */}
-        <Button
-          variant={isFav ? "danger" : "secondary"}
-          onClick={handleFavoriteClick}
-          className="mt-2"
-        >
-          {isFav ? "Unfavorite" : "Favorite"}
-        </Button>
+        <div className="mt-auto">
+          <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+            <Button variant="link" className="w-100 mb-2">Open</Button>
+          </Link>
+          <Button
+            variant={isFav ? "danger" : "secondary"}
+            onClick={() => handleFavoriteClick(movie.id, !isFav)}
+            className="w-100"
+          >
+            {isFav ? "Unfavorite" : "Favorite"}
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );

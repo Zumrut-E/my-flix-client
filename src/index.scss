@@ -2,5 +2,10 @@
 $primary: SeaGreen;
 $body-bg: Honeydew;
 
+body {
+   
+    font-family: Arial, sans-serif;
+}
+
 
 @import '~bootstrap/scss/bootstrap';

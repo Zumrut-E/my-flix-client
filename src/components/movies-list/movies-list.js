@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';  // Import Row and Col from React Bootstrap
 import { MoviesFilter } from '../movies-filter/MoviesFilter';
-import { MovieCard } from '../movie-card/movie-card';  // Assume you have this component
+import { MovieCard } from '../movie-card/movie-card';  // Import MovieCard component
 
-export const MoviesList = (onFavoriteToggle) => {
-  console.log("onFavoriteToggle:", onFavoriteToggle);  // Debugging line
+export const MoviesList = ({ onFavoriteToggle }) => {
   const movies = useSelector((state) => state.movies.movies);  // Access movies state from Redux store
   const filter = useSelector((state) => state.movies.filter);  // Access filter state
 
@@ -14,22 +14,23 @@ export const MoviesList = (onFavoriteToggle) => {
   );
 
   return (
-    <div>
+    <div className="movies-list">
       <MoviesFilter />  {/* Movie search filter */}
-      <div className="movie-list">
+      <Row>
         {filteredMovies.length > 0 ? (
           filteredMovies.map((movie) => (
-            <MovieCard 
-            key={movie.id} 
-            movie={movie} 
-            isFavorite={movie.is_favorite}
-            onFavoriteToggle={onFavoriteToggle}
-            />  // Display each movie card
+            <Col key={movie.id}>
+              <MovieCard
+                movie={movie}
+                isFavorite={movie.is_favorite}
+                onFavoriteToggle={onFavoriteToggle}
+              />
+            </Col>
           ))
         ) : (
-          <p>No movies found</p>
+          <Col>No movies found</Col>
         )}
-      </div>
+      </Row>
     </div>
   );
 };

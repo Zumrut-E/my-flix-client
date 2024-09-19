@@ -9,7 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from 'react-redux';  // Import necessary hooks
 import { setMovies } from '../../features/movies/moviesSlice';  // Import setMovies action
-import { MoviesList } from '../movies-list/MoviesList';  // Import the MoviesList component
+import { MoviesList } from '../movies-list/movies-list';  // Import the MoviesList component
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -100,74 +100,70 @@ export const MainView = () => {
     <BrowserRouter>
       <NavigationBar user={user} onLoggedOut={handleLogout} />
 
-      <Row className="justify-content-md-center">
-        <Routes>
-          <Route
-            path="/profile"
-            element={
-              !token ? (
-                <Navigate to="/" replace />
-              ) : (
-                <ProfileView user={user} movies={movies} onUserUpdate={setUser} onFavoriteToggle={handleFavoriteToggle} />
-              )
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              user ? (
-                <Navigate to="/" />
-              ) : (
-                <Col md={5}>
+      <Row className="justify-content-center mt-4">
+        <Col md={6} lg={4}>
+          <Routes>
+            <Route
+              path="/profile"
+              element={
+                !token ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <ProfileView user={user} movies={movies} onUserUpdate={setUser} onFavoriteToggle={handleFavoriteToggle} />
+                )
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                user ? (
+                  <Navigate to="/" />
+                ) : (
                   <SignUpView />
-                </Col>
-              )
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              user ? (
-                <Navigate to="/" />
-              ) : (
-                <Col md={5}>
+                )
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                user ? (
+                  <Navigate to="/" />
+                ) : (
                   <LoginView
                     onLoggedIn={(user, token) => {
                       setUser(user);
                       setToken(token);
                     }}
                   />
-                </Col>
-              )
-            }
-          />
-          <Route
-            path="/movies/:movieId"
-            element={
-              !user ? (
-                <Navigate to="/login" replace />
-              ) : movies.length === 0 ? (
-                <Col>This list is empty</Col>
-              ) : (
-                <Col md={8}>
+                )
+              }
+            />
+            <Route
+              path="/movies/:movieId"
+              element={
+                !user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col className="text-center">This list is empty</Col>
+                ) : (
                   <MovieView movies={movies} />
-                </Col>
-              )
-            }
-          />
-          <Route
-            path="/"
-            element={
-              !user ? (
-                <Navigate to="/login" replace />
-              ) : movies.length === 0 ? (
-                <Col>The list is empty!</Col>
-              ) : (
-                <MoviesList onFavoriteToggle= {handleFavoriteToggle} /> /* Use the MoviesList component */
-              )
-            }
-          />
-        </Routes>
+                )
+              }
+            />
+            <Route
+              path="/"
+              element={
+                !user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col className="text-center">The list is empty!</Col>
+                ) : (
+                  <MoviesList onFavoriteToggle={handleFavoriteToggle} />
+                )
+              }
+            />
+          </Routes>
+        </Col>
       </Row>
     </BrowserRouter>
   );

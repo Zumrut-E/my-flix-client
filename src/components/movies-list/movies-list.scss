@@ -1,0 +1,16 @@
+.movies-list {
+    .row {
+        margin: 0; // Remove default margin
+    }
+
+    .col {
+        display: flex; // Use flexbox for centering
+        justify-content: center; // Center the card in the column
+    }
+
+    .card {
+        width: 100%; // Make card take up full column width
+        max-width: 100%; // Ensure the card doesn't exceed column width
+        height: 100%; // Make card take up full column height
+    }
+}
