@@ -1,12 +1,14 @@
+
+
   [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_ENV = "production"
 
-[build.processing]
-  skip_processing = true
+[context.production]
+  environment = { NODE_ENV = "production" }
 
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
+[build.environment]
+  PARCEL_CACHE = ".cache"
