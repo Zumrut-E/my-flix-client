@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container, Image } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col'
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 
 export const MovieView = ({ movies }) => {
