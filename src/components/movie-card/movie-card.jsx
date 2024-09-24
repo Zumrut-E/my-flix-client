@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import './movie-card.scss'; // Import custom styles
 
 export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   const [isFav, setIsFav] = useState(isFavorite);
