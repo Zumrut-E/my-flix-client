@@ -101,7 +101,7 @@ export const MainView = () => {
       <NavigationBar user={user} onLoggedOut={handleLogout} />
 
       <Row className="justify-content-center mt-4">
-        <Col md={6} lg={4}>
+        <Col>
           <Routes>
             <Route
               path="/profile"
@@ -168,5 +168,3 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
-
-

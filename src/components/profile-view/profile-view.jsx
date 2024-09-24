@@ -29,8 +29,14 @@ export const ProfileView = ({ user, movies, onLoggedOut, onUserUpdate, onFavorit
   return (
     <Container className="profile-view mt-4">
       <h2>Profile Details</h2>
+      <div className='row'>
+        <div className='col'>
       <UserInfo user={user} />
+      </div>
+      <div className='col'>
       <UserForm user={user} onUserUpdate={onUserUpdate} onLoggedOut={onLoggedOut} />
+      </div>
+      </div>
       <FavoriteMovies movies={favoriteMovies} user={user} onUserUpdate={onUserUpdate} onFavoriteToggle={onFavoriteToggle} />
     </Container>
   );
