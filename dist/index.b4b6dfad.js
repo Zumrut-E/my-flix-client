@@ -34354,7 +34354,8 @@ const MainView = ()=>{
                                     user: user,
                                     movies: movies,
                                     onUserUpdate: setUser,
-                                    onFavoriteToggle: handleFavoriteToggle
+                                    onFavoriteToggle: handleFavoriteToggle,
+                                    onLoggedOut: handleLogout
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
                                     lineNumber: 112,
@@ -34529,10 +34530,10 @@ const MovieView = ({ movies })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                className: "mb-4",
+                className: "mb-4 justify-content-center",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                     md: 8,
-                    lg: 6,
+                    lg: 4,
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Image), {
                         className: "full-width-img",
                         src: movie.image_url,
@@ -53685,7 +53686,7 @@ const MovieCard = ({ movie, isFavorite, onFavoriteToggle })=>{
         else console.error("onFavoriteToggle is not a function");
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-        className: "movie-card",
+        className: "movie-card h-100",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
                 variant: "top",
@@ -53907,6 +53908,7 @@ var _reactRedux = require("react-redux");
 var _reactBootstrap = require("react-bootstrap"); // Import Row and Col from React Bootstrap
 var _moviesFilter = require("../movies-filter/MoviesFilter");
 var _movieCard = require("../movie-card/movie-card"); // Import MovieCard component
+var _moviesListScss = require("./movies-list.scss"); // Import custom styles
 var _s = $RefreshSig$();
 const MoviesList = ({ onFavoriteToggle })=>{
     _s();
@@ -53919,41 +53921,44 @@ const MoviesList = ({ onFavoriteToggle })=>{
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _moviesFilter.MoviesFilter), {}, void 0, false, {
                 fileName: "src/components/movies-list/movies-list.js",
-                lineNumber: 18,
+                lineNumber: 19,
                 columnNumber: 7
             }, undefined),
             "  ",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: filteredMovies.length > 0 ? filteredMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                        md: 6,
+                        lg: 3,
+                        className: "mb-3",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
                             isFavorite: movie.is_favorite,
                             onFavoriteToggle: onFavoriteToggle
                         }, void 0, false, {
                             fileName: "src/components/movies-list/movies-list.js",
-                            lineNumber: 23,
+                            lineNumber: 24,
                             columnNumber: 15
                         }, undefined)
                     }, movie.id, false, {
                         fileName: "src/components/movies-list/movies-list.js",
-                        lineNumber: 22,
+                        lineNumber: 23,
                         columnNumber: 13
                     }, undefined)) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     children: "No movies found"
                 }, void 0, false, {
                     fileName: "src/components/movies-list/movies-list.js",
-                    lineNumber: 31,
+                    lineNumber: 32,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movies-list/movies-list.js",
-                lineNumber: 19,
+                lineNumber: 20,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movies-list/movies-list.js",
-        lineNumber: 17,
+        lineNumber: 18,
         columnNumber: 5
     }, undefined);
 };
@@ -53972,7 +53977,7 @@ $RefreshReg$(_c, "MoviesList");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-bootstrap":"3AD9A","../movies-filter/MoviesFilter":"eoo4Q","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"eoo4Q":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-bootstrap":"3AD9A","../movies-filter/MoviesFilter":"eoo4Q","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./movies-list.scss":"2ea2k"}],"eoo4Q":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d86a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -54027,6 +54032,6 @@ $RefreshReg$(_c, "MoviesFilter");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-bootstrap":"3AD9A","../../features/movies/moviesSlice":"lBL6e","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["gjUm6","1xC6H","d8Dch"], "d8Dch", "parcelRequire94c2")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-bootstrap":"3AD9A","../../features/movies/moviesSlice":"lBL6e","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2ea2k":[function() {},{}]},["gjUm6","1xC6H","d8Dch"], "d8Dch", "parcelRequire94c2")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

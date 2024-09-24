@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';  // Import Row and Col from React Bootstrap
 import { MoviesFilter } from '../movies-filter/MoviesFilter';
 import { MovieCard } from '../movie-card/movie-card';  // Import MovieCard component
+import './movies-list.scss';  // Import custom styles
 
 export const MoviesList = ({ onFavoriteToggle }) => {
   const movies = useSelector((state) => state.movies.movies);  // Access movies state from Redux store
@@ -19,7 +20,7 @@ export const MoviesList = ({ onFavoriteToggle }) => {
       <Row>
         {filteredMovies.length > 0 ? (
           filteredMovies.map((movie) => (
-            <Col key={movie.id}>
+            <Col key={movie.id} md={6} lg={3} className='mb-3'>
               <MovieCard
                 movie={movie}
                 isFavorite={movie.is_favorite}

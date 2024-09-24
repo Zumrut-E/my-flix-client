@@ -20516,4 +20516,19 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.movies-list .row {
+  margin: 0;
+}
+
+.movies-list .col {
+  justify-content: center;
+  display: flex;
+}
+
+.movies-list .card {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
 /*# sourceMappingURL=index.2212206d.css.map */

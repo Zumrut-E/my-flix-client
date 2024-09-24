@@ -109,7 +109,7 @@ export const MainView = () => {
                 !token ? (
                   <Navigate to="/" replace />
                 ) : (
-                  <ProfileView user={user} movies={movies} onUserUpdate={setUser} onFavoriteToggle={handleFavoriteToggle} />
+                  <ProfileView user={user} movies={movies} onUserUpdate={setUser} onFavoriteToggle={handleFavoriteToggle} onLoggedOut={handleLogout} />
                 )
               }
             />
@@ -168,3 +168,5 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
+
+

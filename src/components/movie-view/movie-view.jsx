@@ -13,8 +13,8 @@ export const MovieView = ({ movies }) => {
   console.log('movie:', movies)
   return (
       <Container>
-      <Row className="mb-4">
-        <Col md={8} lg={6}>
+      <Row className="mb-4 justify-content-center">
+        <Col md={8} lg={4}>
       
           <Image className="full-width-img" src={movie.image_url} alt={movie.title} fluid />
         </Col>

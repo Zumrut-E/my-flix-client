@@ -22,7 +22,7 @@ export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   };
 
   return (
-    <Card className="movie-card">
+    <Card className="movie-card h-100">
       <Card.Img variant="top" src={movie.image_url} alt={movie.title} />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="text-truncate">{movie.title}</Card.Title>
